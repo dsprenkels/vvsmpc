@@ -1,10 +1,17 @@
 <?php
-	require_once('config.php');
+	if(!isset($_GET['pass'])) {
+		header('Content-Type: text/javascript; charset=UTF-8');
+		print('null; setError('. json_encode('No password given') .');');
+		exit;
+	}
+	define('SERVER', $_GET['server']);
+	define('PORT', 6600);
+	define('PASSWORD', $_GET['pass']);
 
 	require_once('mpd.php');
 
 	try {
-		$mpd = new MPDClient($server, $port, $password);
+		$mpd = new MPDClient(SERVER, PORT, PASSWORD);
 
 		$result = NULL;
 
@@ -99,6 +106,8 @@
 		$status = $mpd->getStatus();
 
 		if(isset($_GET['my_playlist_seq']) && $_GET['my_playlist_seq'] == $status['playlist']) {
+			#$_playlist = $mpd->getPlaylist(0);
+			#$current = array_shift($_playlist);
 			$current = NULL;
 			$playlist = NULL;
 		} else {

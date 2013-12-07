@@ -703,6 +703,9 @@ function listFiles_callback(response) {
 	for(var i in data.directories) {
 		var div = document.createElement('div');
 		div.className = 'fileBrowserEntry fileBrowserDirectory';
+		if(data.directories[i].usb) {
+			div.className += ' fileBrowserUSB';
+		}
 		div.id = 'fileBrowserEntry'+ counter;
 		div.directory = data.directories[i].Fullname;
 		div.filename = data.directories[i].Fullname;
@@ -872,7 +875,7 @@ function mpd_callback(response) {
 }
 
 function update() {
-	xml_doRequest('command.php?my_playlist_seq='+ encodeURIComponent(myPlaylistSeq), mpd_callback);
+	xml_doRequest('command.php?pass='+ encodeURIComponent(pass) +'&server='+ encodeURIComponent(server) +'&my_playlist_seq='+ encodeURIComponent(myPlaylistSeq), mpd_callback);
 }
 
 function scheduleUpdate() {
@@ -895,7 +898,7 @@ function listFiles(forceReload, dir) {
 	if(!forceReload && el.innerHTML != '') {
 		return;
 	}
-	xml_doRequest('command.php?my_playlist_seq='+ encodeURIComponent(myPlaylistSeq) +'&command=list'+ (dir ? '&args='+ encodeURIComponent(dir) : ''), listFiles_callback);
+	xml_doRequest('command.php?pass='+ encodeURIComponent(pass) +'&server='+ encodeURIComponent(server) +'&my_playlist_seq='+ encodeURIComponent(myPlaylistSeq) +'&command=list'+ (dir ? '&args='+ encodeURIComponent(dir) : ''), listFiles_callback);
 }
 
 function play() {
@@ -912,7 +915,7 @@ function play() {
 }
 
 function command(cmd, args) {
-	xml_doRequest('command.php?my_playlist_seq='+ encodeURIComponent(myPlaylistSeq) +'&command='+ cmd + (args ? '&args='+ encodeURIComponent(args) : ''), mpd_callback);
+	xml_doRequest('command.php?pass='+ encodeURIComponent(pass) +'&server='+ encodeURIComponent(server) +'&my_playlist_seq='+ encodeURIComponent(myPlaylistSeq) +'&command='+ cmd + (args ? '&args='+ encodeURIComponent(args) : ''), mpd_callback);
 }
 
 function search_getResults(response) {
@@ -955,7 +958,7 @@ function search_getResults(response) {
 function search_trigger() {
 	if(searchField.value.length >= 3) {
 		lastSearch = searchField.value;
-		xml_doRequest('command.php?my_playlist_seq='+ encodeURIComponent(myPlaylistSeq) +'&command=search&args='+ encodeURIComponent(searchField.value), search_getResults);
+		xml_doRequest('command.php?pass='+ encodeURIComponent(pass) +'&server='+ encodeURIComponent(server) +'&my_playlist_seq='+ encodeURIComponent(myPlaylistSeq) +'&command=search&args='+ encodeURIComponent(searchField.value), search_getResults);
 		selectedSearchResult = null;
 	}
 }

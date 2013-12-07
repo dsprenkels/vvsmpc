@@ -4,8 +4,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-	<title>MPD client</title>
+	<title>Muzieksysteem Villa van Schaeck</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<script type="text/javascript">
+		var pass = <?php echo isset($_GET['pass']) ? json_encode($_GET['pass']) : "''"; ?>;
+		var server = <?php echo isset($_GET['server']) ? json_encode($_GET['server']) : "'skynet.quis.cx'"; ?>;
+	</script>
 	<script type="text/javascript" src="js/shortcut.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
 </head>
@@ -41,6 +45,10 @@
 				F10<br/>
 				Shuffle
 			</div>
+			<div class="fkeydesc" id="logout" title="Alleen beschikbaar vanaf de muziekcomputers">
+				F12<br/>
+				Logout
+			</div>
 			<div id="volumeHolder">
 				<img src="images/volume_low.png" />
 				<div id="volumeBar"><div id="volume"></div></div>
@@ -73,7 +81,7 @@
 
 		<div id="footer">
 			<span id="updating"></span>
-			&copy; 2012,2013 <a href="https://github.com/Jille/">Jille Timmermans</a> and <a href="https://github.com/thundur">Felix Janssen</a>
+			&copy; 2012,2013 De Technische Commissie
 		</div>
 
 	</div>

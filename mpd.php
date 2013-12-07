@@ -56,6 +56,7 @@
 
 		function _readErrorHandler($errno, $error, $file, $line) {
 			throw new MPDClientRuntimeException('Read error: '. $error, $errno);
+			# throw new ErrorException($error, $errno, 0, $file, $line);
 		}
 
 		private function sendCommand($command /* , $args... */) {
@@ -313,12 +314,21 @@
 			}
 
 			$order = array();
+			$usb = array();
 			foreach($reply['directories'] as $i => $directory) {
-				$order[$i] = $directory['Name'];
+				if(!$reply['parentDirectory'] && preg_match('/^usb[0-9]$/', $directory['Name'])) {
+					$usb[$i] = $directory['Name'];
+					$reply['directories'][$i]['usb'] = true;
+				} else {
+					$order[$i] = $directory['Name'];
+				}
 			}
 			natcasesort($order);
 			$directories = $reply['directories'];
 			$reply['directories'] = array();
+			foreach($usb as $key => $value) {
+				$reply['directories'][$key] = $directories[$key];
+			}
 			foreach($order as $key => $value) {
 				$reply['directories'][$key] = $directories[$key];
 			}
