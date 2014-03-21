@@ -81,7 +81,7 @@
 
 		<div id="footer">
 			<span id="updating"></span>
-			&copy; 2012,2013 De Technische Commissie
+			&copy; 2012-2014 De Technische Commissie
 		</div>
 
 	</div>
