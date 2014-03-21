@@ -851,7 +851,7 @@ function mpd_callback(response) {
 			var el = document.getElementById('playlistentry'+ selectedPlaylistEntry);
 			if(!el) {
 				selectedPlaylistEntry = playlistLength;
-				var el = document.getElementById('playlistentry'+ selectedPlaylistEntry).className = 'playlistentry_selected';
+				document.getElementById('playlistentry'+ selectedPlaylistEntry).className = 'playlistentry_selected';
 			}
 		}
 	}
