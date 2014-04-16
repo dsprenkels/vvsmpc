@@ -181,8 +181,8 @@ function handleArrowDown() {
 				if(el) {
 					el.className = 'searchresultsentry_selected';
 					selectedSearchResult = 1;
+					searchField.blur();
 				}
-				searchField.blur();
 			} else {
 				var el = document.getElementById('searchresultsentry'+ (selectedSearchResult + 1));
 				if(el) {
@@ -480,11 +480,16 @@ function handleTab() {
 
 function handleEscape() {
 	if(mode == 'search') {
-		if(document.getElementById('searchResults').style.display == 'none') {
+		if(selectedSearchResult == null) {
 			lastSearch = null;
 			searchField.value = '';
 		} else {
-			document.getElementById('searchResults').style.display = 'none';
+			if(selectedSearchResult != null) {
+				var el = document.getElementById('searchresultsentry'+ selectedSearchResult);
+				el.className = 'searchresultsentry';
+				selectedSearchResult = null;
+			}
+			searchField.select();
 			searchField.focus();
 		}
 	} else if(mode == 'browse') {
@@ -956,6 +961,7 @@ function search_getResults(response) {
 		searchField.style.backgroundColor = '#c40c17';
 		searchField.style.color = 'white';
 		e.style.display = 'none';
+		searchField.focus();
 	}
 }
 
