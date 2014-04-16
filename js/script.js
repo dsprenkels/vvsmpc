@@ -850,8 +850,12 @@ function mpd_callback(response) {
 		if(selectedPlaylistEntry !== null) {
 			var el = document.getElementById('playlistentry'+ selectedPlaylistEntry);
 			if(!el) {
-				selectedPlaylistEntry = playlistLength;
-				var el = document.getElementById('playlistentry'+ selectedPlaylistEntry).className = 'playlistentry_selected';
+				if(playlistLength > 0) {
+					selectedPlaylistEntry = playlistLength;
+					document.getElementById('playlistentry'+ selectedPlaylistEntry).className = 'playlistentry_selected';
+				} else {
+					selectedPlaylistEntry = null;
+				}
 			}
 		}
 	}
