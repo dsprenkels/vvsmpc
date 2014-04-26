@@ -667,8 +667,14 @@ function xml_doRequest(request, callback) {
 	}
 	if(xml) {
 		xml.onreadystatechange = function() {
-			if(xml.readyState == 4 && xml.status == 200) {
-				callback(xml.responseText);
+			if(xml.readyState == 4) {
+				if(xml.status == 200) {
+					callback(xml.responseText);
+				} else {
+					setError("Internal error (code "+ xml.status +")");
+					lastError = "Internal error (code "+ xml.status +")";
+					setTimeout('location.reload();', 5000);
+				}
 			}
 		};
 		xml.open('GET', request);
